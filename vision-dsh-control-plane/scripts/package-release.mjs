@@ -11,8 +11,11 @@ const sourceCommit = process.env.SOURCE_COMMIT ?? null;
 await mkdir(out, { recursive: true });
 async function copyIf(source, target) { try { await cp(resolve(root, source), join(out, target), { recursive: true, force: true, filter: (path) => !path.includes('node_modules') && !path.includes(`${join('vendor', 'CLIProxyAPI', 'auths')}`) && !path.includes(`${join('vendor', 'CLIProxyAPI', 'release')}`) }); return true; } catch { return false; } }
 await copyIf('dist', 'dist');
-await copyIf('target/x86_64-pc-windows-gnu/release/visiond.exe', 'bin/visiond.exe');
-await copyIf('target/x86_64-pc-windows-gnu/release/vision-desktop.exe', 'bin/vision-desktop.exe');
+await mkdir(join(out, 'bin'), { recursive: true });
+if (process.env.VISIOND_BIN) await cp(resolve(process.env.VISIOND_BIN), join(out, 'bin/visiond.exe'), { force: true });
+else await copyIf('target/x86_64-pc-windows-gnu/release/visiond.exe', 'bin/visiond.exe');
+if (process.env.VISION_DESKTOP_BIN) await cp(resolve(process.env.VISION_DESKTOP_BIN), join(out, 'bin/vision-desktop.exe'), { force: true });
+else await copyIf('target/x86_64-pc-windows-gnu/release/vision-desktop.exe', 'bin/vision-desktop.exe');
 try { const sidecarBinary = process.env.CLIPROXYAPI_BIN; if (sidecarBinary) { await mkdir(join(out, 'optional'), { recursive: true }); await cp(resolve(sidecarBinary), join(out, 'optional/cliproxyapi.exe'), { force: true }); } } catch { /* optional sidecar binary may be unavailable */ }
 await copyIf('integrations/cliproxyapi/sidecar-manifest.json', 'optional/sidecar-manifest.json');
 await copyIf('integrations/cliproxyapi/config.example.yaml', 'optional/config.example.yaml');

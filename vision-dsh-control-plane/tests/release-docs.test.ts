@@ -38,6 +38,8 @@ describe('release documentation and payload contract', () => {
     ]) {
       expect(packager).toContain(required);
     }
+    expect(packager).toContain('VISIOND_BIN');
+    expect(packager).toContain('VISION_DESKTOP_BIN');
   });
 
   it('uses the project-generated icon rather than the donor placeholder', async () => {
