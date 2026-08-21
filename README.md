@@ -1,22 +1,23 @@
-# Furina DSH Plugins
+# Vision + Codex Unified Product
 
-DeepSeek Harness 插件合集：LLM 审计 + ChatGPT 直连适配器。
+This repository is the release candidate for the Vision DSH control plane. It has one observability implementation and two optional Codex paths:
 
-## 插件列表
+- `vision-dsh-control-plane/plugins/dsh-observability` records sanitized DSH stream observations, cost, timing, cache and provider reports.
+- `vision-dsh-control-plane/plugins/furina-codex-provider` is the optional DSH Direct Provider for the Codex backend. It uses secure TLS, incremental SSE and environment/config based credentials.
+- `vision-dsh-control-plane/integrations/cliproxyapi` describes and supervises the optional CLIProxyAPI sidecar, which exposes OpenAI-compatible `/v1/models` and `/v1/responses`.
+- `vision-dsh-control-plane/apps` and `crates` contain the Vision desktop/gateway/Rust core.
 
-| 插件 | 说明 |
-|------|------|
-| `furina-llm-manager` | LLM 调用审计 + 成本核算 + Provider 视图 |
-| `furina-codex-provider` | 直连 ChatGPT 后端 API（Codex 协议） |
+The old top-level `furina-llm-manager` and `visualization` directories were removed from the active tree after creating the immutable recovery tag `legacy-furina-dsh-plugins-v0.1.0`. Their audited capabilities are implemented by the single DSH observability plugin and the Vision dashboard/docs.
 
-## 快速开始
+## Local checks
 
-1. 安装 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)
-2. 将插件目录复制到 `dsh-home/plugins/`
-3. 在 `cordis.patch.yml` 中注册插件（见各插件 README）
-4. 重启 DSH
+```powershell
+Set-Location vision-dsh-control-plane
+pnpm install --frozen-lockfile
+node node_modules/typescript/bin/tsc --noEmit
+node node_modules/vitest/vitest.mjs run
+node node_modules/typescript/bin/tsc -p tsconfig.build.json
+node plugins/furina-codex-provider/test/index.test.mjs
+```
 
-## 前置要求
-
-- **furina-llm-manager**：无额外依赖，纯本地运行
-- **furina-codex-provider**：需要 Codex CLI 账号（OAuth token） + 代理（国内环境）
+Codex Direct and CLIProxyAPI are optional and disabled by default. Real provider acceptance requires credentials supplied through the process environment or an approved credential store; credentials are never written to logs, evidence, SQLite, JSONL, Git or release files.

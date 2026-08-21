@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "component": "CLIProxyAPI",
+  "module": "optional-sidecar",
+  "default_enabled": false,
+  "default_bind": "127.0.0.1:8317",
+  "upstream_protocol": "OpenAI Responses / Codex",
+  "source_donor": "E:/THU-Phd/AI-LFYC-4/Vision/素材/CLIProxyAPI",
+  "source_file_count": 1347,
+  "candidate_vendor_path": "vendor/CLIProxyAPI",
+  "go_mod_sha256": "432f236e54b5672bb56113c0d774ab80037a9c7be8afe07d68764460d840f615",
+  "license": "MIT",
+  "license_sha256": "879792e89cf1bdd6a8d446033ec87e30496f97dcafc4656dc53f641509b346a6",
+  "runtime_policy": "loopback-only unless explicitly configured with authentication",
+  "credential_policy": "credentials come from CLIProxyAPI's approved auth store; never pass on argv or persist in Vision evidence"
+}

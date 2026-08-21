@@ -1,0 +1,18 @@
+[package]
+name = "vision-desktop"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "vision_desktop_lib"
+# Windows MVP ships the Tauri executable; rlib avoids exporting the entire WebView2
+# dependency graph on the GNU linker. Mobile/static library targets remain Phase 2.
+crate-type = ["rlib"]
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }

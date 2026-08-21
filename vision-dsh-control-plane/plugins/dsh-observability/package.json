@@ -1,0 +1,30 @@
+{
+  "name": "@vision/dsh-observability",
+  "version": "0.1.0",
+  "description": "Vision observability connector for DeepSeek Harness (DSH)",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./core": "./lib/core.js",
+    "./package.json": "./package.json"
+  },
+  "files": ["lib", "README.md", "docs", "LICENSE"],
+  "license": "MIT",
+  "scripts": {
+    "test": "node tests/run.js",
+    "typecheck": "node --check lib/core.js && node --check lib/index.js",
+    "check": "npm run typecheck && npm test"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": ">=0.1.0-rc.6 <0.2.0",
+    "@deepseek-ai/dsh-llm": ">=0.1.0-rc.6 <0.2.0",
+    "@deepseek-ai/schemastery": ">=3.18.1 <4"
+  },
+  "devDependencies": {
+    "@deepseek-ai/dsh-tools": "0.1.0-rc.8",
+    "@deepseek-ai/dsh-llm": "0.1.0-rc.8",
+    "@deepseek-ai/schemastery": "3.18.1"
+  },
+  "engines": { "node": ">=22" }
+}

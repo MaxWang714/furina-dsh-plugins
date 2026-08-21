@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Vision",
+  "version": "0.1.0",
+  "identifier": "ai.vision.controlplane",
+  "build": {
+    "beforeDevCommand": "pnpm build && pnpm frontend:dev",
+    "beforeBuildCommand": "pnpm build && pnpm frontend:build",
+    "devUrl": "http://localhost:5173",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [{ "title": "Vision Control Plane", "width": 1280, "height": 820 }],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "windows": { "nsis": { "installMode": "currentUser" } }
+  }
+}

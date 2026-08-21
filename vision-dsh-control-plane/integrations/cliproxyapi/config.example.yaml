@@ -1,0 +1,6 @@
+host: 127.0.0.1
+port: 8317
+debug: false
+# Point CLIProxyAPI at its own auth store. Do not put OAuth tokens in this file.
+auth-dir: "./auths"
+# The Vision integration expects /v1/models and /v1/responses.

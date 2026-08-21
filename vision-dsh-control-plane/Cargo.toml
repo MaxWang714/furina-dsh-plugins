@@ -1,0 +1,14 @@
+[workspace]
+resolver = "2"
+members = [
+  "crates/visiond",
+  "apps/desktop/src-tauri",
+  "crates/vision-domain",
+  "crates/vision-storage",
+  "crates/vision-protocol",
+  "crates/vision-gateway",
+  "crates/vision-observability",
+  "crates/vision-pricing",
+  "crates/vision-mock",
+  "crates/vision-diagnostics"
+]
