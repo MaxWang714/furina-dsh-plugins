@@ -11,7 +11,7 @@ const eventTypes = []; let firstMeaningfulMs = null; let usageKeys = []; let fin
 const adapter = createCodexAdapter({ logger: { debug(message) { if (/status=/.test(message)) eventTypes.push('network:status'); } } }, { CODEX_ACCESS_TOKEN: process.env.CODEX_ACCESS_TOKEN, CODEX_BASE_URL: process.env.CODEX_BASE_URL, CODEX_PROXY_URL: process.env.CODEX_PROXY_URL });
 let error = null;
 try {
-  for await (const event of adapter.stream({ model: process.env.CODEX_MODEL ?? 'gpt-5.3-codex', messages: [{ role: 'user', content: 'Reply with one word: ping.' }], signal: controller.signal })) {
+  for await (const event of adapter.stream({ model: process.env.CODEX_MODEL ?? 'gpt-5.6-luna', messages: [{ role: 'user', content: 'Reply with one word: ping.' }], signal: controller.signal })) {
     eventTypes.push(event.type);
     if (firstMeaningfulMs == null && (event.type === 'text-delta' || event.type === 'tool-call')) firstMeaningfulMs = Date.now() - started;
     if (event.type === 'text-delta') { if (event.index === 1) reasoningChars += event.text?.length ?? 0; else textChars += event.text?.length ?? 0; }
@@ -20,7 +20,7 @@ try {
   }
 } catch (caught) { error = String(caught?.message ?? caught).replace(/Bearer\s+[^\s,]+/gi, 'Bearer [REDACTED]'); }
 finally { clearTimeout(timeout); }
-const result = { schema_version: '1.0.0', case_id: 'codex-direct-real-smoke', run_id: process.env.VISION_RUN_ID ?? 'unknown', trace_id: `trace_codex_direct_real_${Date.now()}`, real: true, request: { provider: 'codex-openai', model: process.env.CODEX_MODEL ?? 'gpt-5.3-codex', prompt: '[REDACTED]' }, network: { event_types: eventTypes }, response: { text_chars: textChars, reasoning_chars: reasoningChars, first_meaningful_ms: firstMeaningfulMs, usage_keys: usageKeys, finish }, observation: { status: error ? 'error' : finish === 'stop' ? 'success' : 'incomplete' }, replay: { status: 'not_applicable', reason: 'real provider response is not persisted' }, verdict: error ? 'BLOCKED_OR_FAIL' : finish === 'stop' ? 'PASS_REAL_CODEX_DIRECT' : 'NOT_READY', error };
+const result = { schema_version: '1.0.0', case_id: 'codex-direct-real-smoke', run_id: process.env.VISION_RUN_ID ?? 'unknown', trace_id: `trace_codex_direct_real_${Date.now()}`, real: true, request: { provider: 'codex-openai', model: process.env.CODEX_MODEL ?? 'gpt-5.6-luna', prompt: '[REDACTED]' }, network: { event_types: eventTypes }, response: { text_chars: textChars, reasoning_chars: reasoningChars, first_meaningful_ms: firstMeaningfulMs, usage_keys: usageKeys, finish }, observation: { status: error ? 'error' : finish === 'stop' ? 'success' : 'incomplete' }, replay: { status: 'not_applicable', reason: 'real provider response is not persisted' }, verdict: error ? 'BLOCKED_OR_FAIL' : finish === 'stop' ? 'PASS_REAL_CODEX_DIRECT' : 'NOT_READY', error };
 await writeFile(resolve(evidenceDir, 'codex-direct-real.json'), JSON.stringify(result, null, 2), 'utf8');
 console.log(JSON.stringify({ verdict: result.verdict, event_count: eventTypes.length, first_meaningful_ms: firstMeaningfulMs, finish, error }));
 if (result.verdict !== 'PASS_REAL_CODEX_DIRECT') process.exitCode = 2;

@@ -47,4 +47,10 @@ describe('release documentation and payload contract', () => {
     expect(notices).toContain('scripts/generate-vision-icon.ps1');
     expect(notices).not.toContain('Replace it with Vision artwork before distribution');
   });
+
+  it('keeps the real Direct smoke on the release-validated Codex model', async () => {
+    const smoke = await text('scripts/real-codex-direct-smoke.mjs');
+    expect(smoke).toContain("process.env.CODEX_MODEL ?? 'gpt-5.6-luna'");
+    expect(smoke).not.toContain("process.env.CODEX_MODEL ?? 'gpt-5.3-codex'");
+  });
 });
