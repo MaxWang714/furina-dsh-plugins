@@ -3,4 +3,8 @@ port: 8317
 debug: false
 # Point CLIProxyAPI at its own auth store. Do not put OAuth tokens in this file.
 auth-dir: "./auths"
+# Browsers use Windows Internet Settings, but the Go sidecar may not inherit
+# that proxy. If direct Codex requests time out, set an explicit HTTP, HTTPS,
+# SOCKS5 or SOCKS5H URL here (for example http://127.0.0.1:7890).
+proxy-url: ""
 # The Vision integration expects /v1/models and /v1/responses.
