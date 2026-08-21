@@ -13,8 +13,8 @@
   "license_sha256": "879792e89cf1bdd6a8d446033ec87e30496f97dcafc4656dc53f641509b346a6",
   "candidate_patch": {
     "scope": "Windows Claude legacy fingerprint fallback and no-copy review metadata",
-    "binary_sha256": "3a2bed44dac47b26e592163832eff4d8ed0c7d514818b2a364cb742cd873ef12",
-    "unresolved_upstream_test": "internal/store corruption recovery still fails on Windows Access is denied while renaming corrupt .git"
+    "binary_sha256": "78b93170050ad14b274c8a7158d726ca56bdb2a0990d85d6f1ace252c2199e8e",
+    "upstream_test": "go test ./... passes, including internal/store Windows recovery and internal/cache replay eviction"
   },
   "runtime_policy": "loopback-only unless explicitly configured with authentication",
   "credential_policy": "credentials come from CLIProxyAPI's approved auth store; never pass on argv or persist in Vision evidence"
