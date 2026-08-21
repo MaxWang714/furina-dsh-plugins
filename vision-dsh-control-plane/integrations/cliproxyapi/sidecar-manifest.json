@@ -11,6 +11,11 @@
   "go_mod_sha256": "432f236e54b5672bb56113c0d774ab80037a9c7be8afe07d68764460d840f615",
   "license": "MIT",
   "license_sha256": "879792e89cf1bdd6a8d446033ec87e30496f97dcafc4656dc53f641509b346a6",
+  "candidate_patch": {
+    "scope": "Windows Claude legacy fingerprint fallback and no-copy review metadata",
+    "binary_sha256": "3a2bed44dac47b26e592163832eff4d8ed0c7d514818b2a364cb742cd873ef12",
+    "unresolved_upstream_test": "internal/store corruption recovery still fails on Windows Access is denied while renaming corrupt .git"
+  },
   "runtime_policy": "loopback-only unless explicitly configured with authentication",
   "credential_policy": "credentials come from CLIProxyAPI's approved auth store; never pass on argv or persist in Vision evidence"
 }

@@ -8,3 +8,5 @@ vision.db
 target/
 src-tauri/target/
 apps/desktop/src-tauri/gen/
+evidence/
+integrations/cliproxyapi/auths-test/logs/
