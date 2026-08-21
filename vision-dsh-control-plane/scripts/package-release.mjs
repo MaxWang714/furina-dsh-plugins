@@ -16,9 +16,13 @@ await copyIf('target/x86_64-pc-windows-gnu/release/vision-desktop.exe', 'bin/vis
 try { const sidecarBinary = process.env.CLIPROXYAPI_BIN; if (sidecarBinary) { await mkdir(join(out, 'optional'), { recursive: true }); await cp(resolve(sidecarBinary), join(out, 'optional/cliproxyapi.exe'), { force: true }); } } catch { /* optional sidecar binary may be unavailable */ }
 await copyIf('integrations/cliproxyapi/sidecar-manifest.json', 'optional/sidecar-manifest.json');
 await copyIf('integrations/cliproxyapi/config.example.yaml', 'optional/config.example.yaml');
+await copyIf('integrations/cliproxyapi/README.md', 'optional/README.md');
+await copyIf('integrations/cliproxyapi/CLIProxyAPI-LICENSE', 'optional/CLIProxyAPI-LICENSE');
+await copyIf('integrations/cliproxyapi/dsh-provider', 'plugins/dsh-cliproxyapi-provider');
 await copyIf('plugins/dsh-observability', 'plugins/dsh-observability');
 await copyIf('plugins/furina-codex-provider', 'plugins/furina-codex-provider');
 await copyIf('README.md', 'README.md');
+await copyIf('THIRD_PARTY_NOTICES.md', 'THIRD_PARTY_NOTICES.md');
 await copyIf('docs', 'docs');
 await copyIf('packaging', 'packaging');
 const files = [];
